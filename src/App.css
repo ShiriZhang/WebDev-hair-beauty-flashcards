@@ -10,7 +10,7 @@ body{
 }
 
 .header {
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
 .header h1 {
@@ -24,10 +24,38 @@ body{
   margin: 0 auto 10px;
 }
 
+.mastered-count {
+  color: #999;
+  font-weight: normal;
+  font-size: 0.9rem;
+}
+
+/* Streak Counter */
+.streak-counter {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-bottom: 20px;
+  font-size: 1rem;
+  color: #555;
+}
+
+.streak-item strong {
+  color: #c85a7c;
+}
+
+/* Card Section */
 .card-section {
   display: flex;
   justify-content: center;
   margin-bottom: 20px;
+}
+
+.flashcard-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
 }
 
 .flashcard-scene {
@@ -87,7 +115,129 @@ body{
   color: #333;
 }
 
-.button-section button {
+/* Mastered Button */
+.mastered-btn {
+  background: none;
+  border: 2px solid #ddd;
+  padding: 6px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: #888;
+  transition: all 0.2s ease;
+}
+
+.mastered-btn:hover {
+  border-color: #c85a7c;
+  color: #c85a7c;
+}
+
+.mastered-btn.mastered-active {
+  background-color: #c85a7c;
+  border-color: #c85a7c;
+  color: white;
+}
+
+/* Guess Input */
+.guess-section {
+  margin-bottom: 20px;
+}
+
+.guess-input {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 12px;
+  border-radius: 12px;
+  transition: background-color 0.3s ease;
+}
+
+.guess-input.guess-correct {
+  background-color: rgba(72, 187, 120, 0.1);
+}
+
+.guess-input.guess-incorrect {
+  background-color: rgba(245, 101, 101, 0.1);
+}
+
+.guess-input-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.guess-input-row label {
+  font-size: 0.95rem;
+  color: #555;
+  font-weight: 600;
+}
+
+.guess-input-row input {
+  padding: 10px 14px;
+  font-size: 1rem;
+  border: 2px solid #f3b6c6;
+  border-radius: 10px;
+  outline: none;
+  width: 220px;
+  transition: border-color 0.2s ease;
+}
+
+.guess-input-row input:focus {
+  border-color: #c85a7c;
+}
+
+.guess-input-row input:disabled {
+  background-color: #f5f5f5;
+  cursor: not-allowed;
+}
+
+.guess-input-row button {
+  background-color: #c85a7c;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.guess-input-row button:hover:not(:disabled) {
+  background-color: #a94766;
+}
+
+.guess-input-row button:disabled {
+  background-color: #ddd;
+  cursor: not-allowed;
+}
+
+.feedback {
+  font-weight: 700;
+  font-size: 1rem;
+  margin: 4px 0 0;
+}
+
+.feedback-correct {
+  color: #2f855a;
+}
+
+.feedback-incorrect {
+  color: #c53030;
+}
+
+/* Navigation Section */
+.nav-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.nav-btn {
   background-color: #c85a7c;
   color: white;
   border: none;
@@ -95,9 +245,75 @@ body{
   font-size: 1rem;
   border-radius: 10px;
   cursor: pointer;
+  transition: background-color 0.2s ease, opacity 0.2s ease;
 }
 
-.button-section button:hover {
+.nav-btn:hover:not(:disabled) {
+  background-color: #a94766;
+}
+
+.nav-btn.nav-disabled {
+  background-color: #ccc;
+  color: #999;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.shuffle-btn {
+  background-color: #e8a0b5;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  font-size: 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.shuffle-btn:hover {
+  background-color: #d4869e;
+}
+
+/* Mastered List */
+.mastered-list {
+  max-width: 500px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.mastered-list h4,
+.mastered-list h3 {
+  color: #c85a7c;
+  text-align: center;
+}
+
+.mastered-list ul {
+  list-style: none;
+  padding: 0;
+}
+
+.mastered-list li {
+  padding: 8px 12px;
+  background: #ffe4ec;
+  border-radius: 8px;
+  margin-bottom: 6px;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.mastered-list > button {
+  display: block;
+  margin: 16px auto 0;
+  background-color: #c85a7c;
+  color: white;
+  border: none;
+  padding: 10px 24px;
+  font-size: 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.mastered-list > button:hover {
   background-color: #a94766;
 }
 

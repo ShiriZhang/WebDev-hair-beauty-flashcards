@@ -1,8 +1,8 @@
-# Web Development Project 2 - *Hair and Beauty Trivia Flashcards*
+# Web Development Project 3 - *Hair & Beauty Trivia Flashcards*
 
 Submitted by: **Shiyu Zhang**
 
-This web app: **A lightweight React + Vite flashcard web app for hair and beauty trivia, featuring smooth 3D card-flip animations and randomized questions to make learning quick, interactive, and fun.**
+This web app: **An interactive flashcard app that quizzes users on hair, skincare, and beauty trivia. Users can guess answers with fuzzy matching, navigate sequentially through cards, shuffle the deck, track their correct-answer streaks, and mark cards as mastered.**
 
 Time spent: **6** hours spent in total
 
@@ -10,41 +10,48 @@ Time spent: **6** hours spent in total
 
 The following **required** functionality is completed:
 
-
-- [x] **The app displays the title of the card set, a short description, and the total number of cards**
-  - [x] Title of card set is displayed 
-  - [x] A short description of the card set is displayed 
-  - [x] A list of card pairs is created
-  - [x] The total number of cards in the set is displayed 
-  - [x] Card set is represented as a list of card pairs (an array of dictionaries where each dictionary contains the question and answer is perfectly fine)
-- [x] **A single card at a time is displayed**
-  - [x] Only one half of the information pair is displayed at a time
-- [x] **Clicking on the card flips the card over, showing the corresponding component of the information pair**
-  - [x] Clicking on a card flips it over, showing the back with corresponding information 
-  - [x] Clicking on a flipped card again flips it back, showing the front
-- [x] **Clicking on the next button displays a random new card**
+- [x] **The user can enter their guess into an input box *before* seeing the flipside of the card**
+  - Application features a clearly labeled input box with a submit button where users can type in a guess
+  - Clicking on the submit button with an **incorrect** answer shows visual feedback that it is wrong
+  -  Clicking on the submit button with a **correct** answer shows visual feedback that it is correct
+- [x] **The user can navigate through an ordered list of cardss**
+  - A forward/next button displayed on the card navigates to the next card in a set sequence when clicked
+  - A previous/back button displayed on the card returns to the previous card in the set sequence when clicked
+  - Both the next and back buttons should have some visual indication that the user is at the beginning or end of the list (for example, graying out and no longer being available to click), not allowing for wrap-around navigation
 
 The following **optional** features are implemented:
 
-- [ ] Cards contain images in addition to or in place of text
-  - [ ] Some or all cards have images in place of or in addition to text
-- [ ] Cards have different visual styles such as color based on their category
-  - Example categories you can use:
-    - Difficulty: Easy/medium/hard
-    - Subject: Biology/Chemistry/Physics/Earth science
+
+- [x] Users can use a shuffle button to randomize the order of the cards
+  - Cards should remain in the same sequence (**NOT** randomized) unless the shuffle button is clicked
+  - Cards should change to a random sequence once the shuffle button is clicked
+- [x] A user’s answer may be counted as correct even when it is slightly different from the target answer
+  - Answers are considered correct even if they only partially match the answer on the card
+  - Examples: ignoring uppercase/lowercase discrepancies, ignoring punctuation discrepancies, matching only for a particular part of the answer rather than the whole answer
+- [x] A counter displays the user’s current and longest streak of correct responses
+  - The current counter increments when a user guesses an answer correctly
+  - The current counter resets to 0 when a user guesses an answer incorrectly
+  - A separate counter tracks the longest streak, updating if the value of the current streak counter exceeds the value of the longest streak counter
+- [x] A user can mark a card that they have mastered and have it removed from the pool of displayed cards
+  - The user can mark a card to indicate that it has been mastered
+  - Mastered cards are removed from the pool of displayed cards and added to a list of mastered cards
+
 
 The following **additional** features are implemented:
 
-* [ ] List anything else that you added to improve the site's functionality!
+* [x] Input is automatically disabled after flipping the card to prevent cheating
+* [x] Guess input resets automatically when navigating to a new card
+* [x] A completion screen is shown when all cards are mastered, with a "Reset All" button
+* [x] Keyboard support — pressing Enter submits the guess
 
 ## Video Walkthrough
 
-Here's a walkthrough of implemented required features:
+Here's a walkthrough of implemented user stories:
 
-<img src='project2_walkthrough.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 <!-- Replace this with whatever GIF tool you used! -->
-GIF created with [ScreenToGif](https://www.screentogif.com/)
+GIF created with ...  
 <!-- Recommended tools:
 [Kap](https://getkap.co/) for macOS
 [ScreenToGif](https://www.screentogif.com/) for Windows
@@ -52,8 +59,11 @@ GIF created with [ScreenToGif](https://www.screentogif.com/)
 
 ## Notes
 
-- Building a true 3D flip effect in CSS (perspective, preserve-3d, backface-visibility) instead of simple text swapping.
-- Preventing random “next card” from repeating the same card too often.
+- **Managing multiple interdependent state variables**: Keeping `currentPosition`, `cardOrder`, `masteredIds`, `isFlipped`, and `guessKey` in sync was tricky — for example, when a user masters a card, the position index needs to be recalculated to avoid pointing at a removed card.
+- **Fuzzy matching logic**: Deciding how lenient the answer-checking should be was a balancing act. Pure substring matching was too loose (short words like "it" would match anything), so I implemented word-level matching with a minimum word length threshold and a 50% match ratio.
+- **Resetting the GuessInput component on card navigation**: Since the input component has its own local state (`guess`, `feedback`), simply changing the parent's state didn't clear it. I solved this by using a `key` prop that increments on each card change, forcing React to remount the component with fresh state.
+- **Preventing cheating by flipping first**: I needed to disable the guess input after the card is flipped so users can't peek at the answer and then type it in. Coordinating the `isFlipped` state between the parent and the input component required careful prop passing.
+- **Sequential navigation with shuffle and mastered cards**: The card order can be shuffled, and mastered cards are filtered out, so the "position" the user sees is an index into a filtered + reordered list, not the original array. Keeping the Back/Next buttons correctly enabled/disabled at the boundaries of this dynamic list required careful index math.
 
 ## License
 
